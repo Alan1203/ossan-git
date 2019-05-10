@@ -16,6 +16,7 @@ import javax.servlet.http.HttpSession;
 import _01_register.model.MemberOssanBean;
 import _03_listOssans.service.OssanService;
 import _03_listOssans.service.impl.OssanServiceImpl;
+import _03_listOssans.service.impl.OssanServiceImplHibernate;
 
 @WebServlet("/_03_listOssans/DisplayOssanProducts")
 // 本控制器負責進行必要的前置作業，以便Dao取回某一頁的商品資料
@@ -82,10 +83,8 @@ public class RetrieveOssanProducts extends HttpServlet {
 		}
 		
 		OssanService service = new OssanServiceImpl(); 
-
 		// 讀取一頁的書籍資料之前，告訴service，現在要讀哪一頁
 		service.setPageNo(pageNo);
-		
 		//Jay:下面這兩行是取出Quote的List，但是應該可以整合進MemberOssanBean
 		List<String> quoteList = service.getQuoteOssan();
 		request.setAttribute("ossan_quote", quoteList);
@@ -93,8 +92,15 @@ public class RetrieveOssanProducts extends HttpServlet {
 		//Jay:下面這行我看不到對應把值取出的地方，先Remark看看，可能可以拿掉
 //		request.setAttribute("baBean", service);
 		
+		//Jay:開始慢慢轉移 Hibernate - getPageOssans()
 		// service.getPageBooks()方法開始讀取一頁的書籍資料
-		Collection<MemberOssanBean> coll = service.getPageOssans();
+		OssanService serviceHibernate = new OssanServiceImplHibernate();
+		// 讀取一頁的書籍資料之前，告訴serviceNew，現在要讀哪一頁
+		serviceHibernate.setPageNo(pageNo);
+		Collection<MemberOssanBean> coll = serviceHibernate.getPageOssans();
+		
+		
+		
 		session.setAttribute("pageNo", String.valueOf(pageNo));
 		request.setAttribute("totalPages", service.getTotalPages());
 		// 將讀到的一頁資料放入request物件內，成為它的屬性物件

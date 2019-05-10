@@ -6,6 +6,15 @@ import java.sql.Clob;
 import java.sql.Date;
 import java.sql.Timestamp;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
+@Entity
+@Table(name="memberossan")
 public class MemberOssanBean implements Serializable {
 	private static final long serialVersionUID = 1L;
 	Integer pKey;
@@ -94,7 +103,10 @@ public class MemberOssanBean implements Serializable {
 
 	public MemberOssanBean() {
 	}
-
+	
+	@Id
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@Column(name="seqNo")
 	public Integer getpKey() {
 		return pKey;
 	}
