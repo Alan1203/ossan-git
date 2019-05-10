@@ -43,11 +43,16 @@ public class RetrieveOssanProducts extends HttpServlet {
 //		// 登入成功後，Session範圍內才會有LoginOK對應的MemberBean物件
 //		MemberBean mb = (MemberBean) session.getAttribute("LoginOK");
 //		// 取出使用者的memberId，後面的Cookie會用到 
+		
+		
+		//Jay:這邊因為我們沒有檢查會員的系統，所以先把memberId給一個假字串
+		//Jay:讓他可以丟字串進去Cookie做辨識而已
 		String memberId = "nonuser";
+		
 //		String memberId = mb.getMemberId();
 //		// BookService介面負責讀取資料庫內Book表格內某一頁的書籍資料，並能新增、修改、刪除
 //		// 書籍資料等。
-//		
+	
 		// 讀取瀏覽送來的 pageNo
 		String pageNoStr = request.getParameter("pageNo");
 		// 如果讀不到，直接點選主功能表的『購物』就不會送 pageNo給後端伺服器
@@ -80,11 +85,14 @@ public class RetrieveOssanProducts extends HttpServlet {
 
 		// 讀取一頁的書籍資料之前，告訴service，現在要讀哪一頁
 		service.setPageNo(pageNo);
+		
+		//Jay:下面這兩行是取出Quote的List，但是應該可以整合進MemberOssanBean
 		List<String> quoteList = service.getQuoteOssan();
-	
 		request.setAttribute("ossan_quote", quoteList);
 		
-		request.setAttribute("baBean", service);
+		//Jay:下面這行我看不到對應把值取出的地方，先Remark看看，可能可以拿掉
+//		request.setAttribute("baBean", service);
+		
 		// service.getPageBooks()方法開始讀取一頁的書籍資料
 		Collection<MemberOssanBean> coll = service.getPageOssans();
 		session.setAttribute("pageNo", String.valueOf(pageNo));

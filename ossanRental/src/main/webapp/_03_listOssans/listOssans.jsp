@@ -6,11 +6,11 @@
 <html>
 
 <head>
-<meta charset="UTF-8">
-<title>顯示商品資訊</title>
-  <style type="text/css">
+	<meta charset="UTF-8">
+	<title>顯示商品資訊</title>
+	<style type="text/css">
   		#quote { white-space:pre-wrap }
-  </style>
+	</style>
 </head>
 
 <body>
@@ -18,27 +18,30 @@
 <jsp:include page="/fragment/top.jsp" />
 	<div style="padding-left:50px">
 	
-	<a class="pure-button pure-button-primary" href="<c:url value=
-			'/_03_listOssans/DisplayOssanProducts' />">全部</a>
-	<a class="pure-button pure-button-primary" href="<c:url value=
-			'/_03_listOssans/DisplayOssanProductsNorth' />">北部</a>
-	<a class="pure-button pure-button-primary" href="<c:url value=
-			'/_03_listOssans/DisplayOssanProducts' />">中部</a>
-	<a class="pure-button pure-button-primary" href="<c:url value=
-			'/_03_listOssans/DisplayOssanProducts' />">南部</a>
-	<a class="pure-button pure-button-primary" href="<c:url value=
-			'/_03_listOssans/DisplayOssanProducts' />">其他</a>
+		<a class="pure-button pure-button-primary" href="<c:url value=
+				'/_03_listOssans/DisplayOssanProducts' />">全部</a>
+		<a class="pure-button pure-button-primary" href="<c:url value=
+				'/_03_listOssans/DisplayOssanProductsNorth' />">北部</a>
+		<a class="pure-button pure-button-primary" href="<c:url value=
+				'/_03_listOssans/DisplayOssanProducts' />">中部</a>
+		<a class="pure-button pure-button-primary" href="<c:url value=
+				'/_03_listOssans/DisplayOssanProducts' />">南部</a>
+		<a class="pure-button pure-button-primary" href="<c:url value=
+				'/_03_listOssans/DisplayOssanProducts' />">其他</a>
 	
 		<c:choose>
+		
 		   <c:when test="${ShoppingCart.itemNumber > 0}">
 		      <!-- 購物車內有一項以上的商品 -->
 		      <c:set var="cartContent1" value="購物車內有${ShoppingCart.itemNumber}項商品"/>
 		      	<span class="pure-form-message-inline">${cartContent1}</span>
 				<span class="pure-form-message-inline">金額小計(OK):<c:out value="${ShoppingCart.subtotal}" default="0"/> 元</span>
 		   </c:when>
+		   
 		   <c:otherwise>
 		   		<span class="pure-form-message-inline"></span>
 		   </c:otherwise>
+		   
 		</c:choose>
 	</div>
 <hr>
@@ -66,7 +69,7 @@
             </td>
             <td>${aOssanBean.name}</td>
             <td>${aOssanBean.nickname}</td>
-            
+<!-- 			Jay:注意這邊的用法，可以在迴圈裡用兩種變數 -->
             <td id="quote">${ossan_quote[stVar.index]}</td>
             
             <td>
