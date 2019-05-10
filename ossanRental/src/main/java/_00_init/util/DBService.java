@@ -5,7 +5,7 @@ public class DBService {
 	public static final String DB_MYSQL = "MYSQL";
 
 	public static final String DB_TYPE = DB_MYSQL;
-
+//jspdb
 	private static final String DBURL_MySQL = "jdbc:mysql://" + host
 			+ "/jspdb?useUnicode=yes&characterEncoding=utf8&useSSL=false&serverTimezone=Asia/Taipei";
 	public static final String USERID_MySQL = "root";
